@@ -14,22 +14,28 @@
         }
 
         header {
-            width: 20%;
+            width: 100%;
             padding: 20px;
             background-color: #f0f0f0;
             box-sizing: border-box;
-            overflow: hidden;
+            z-index: 2; /* Ensure the header appears above the site map */
         }
 
         main {
             flex: 1;
-            padding: 20px;
+            display: flex;
             box-sizing: border-box;
-            margin-left: 20%; /* Ensure main content starts after the header */
         }
 
         nav {
-            margin-bottom: 20px;
+            width: 20%;
+            padding: 20px;
+            background-color: #f0f0f0;
+            box-sizing: border-box;
+            position: fixed;
+            height: 100vh;
+            overflow: auto;
+            z-index: 1; /* Ensure the site map appears above the main content */
         }
 
         nav a {
@@ -41,7 +47,10 @@
         }
 
         section {
-            margin-bottom: 30px;
+            width: 80%;
+            padding: 20px;
+            box-sizing: border-box;
+            margin-left: 20%; /* Adjust for the width of the nav */
         }
 
         /* Updated styling for the site map column */
@@ -49,7 +58,7 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 200px; /* Adjust the width as needed */
+            width: 20%; /* Adjust the width as needed */
             max-height: 100vh;
             background-color: #f0f0f0;
             overflow: auto;
@@ -83,15 +92,16 @@
     <!-- Main Content -->
     <header>
         <h1>Neuroalgebra</h1>
-        <nav>
-            <a href="#introduction">Introduction</a>
-            <a href="#examples">Examples</a>
-            <a href="#documentation">Documentation</a>
-            <a href="#download-links">Download Links</a>
-            <a href="#registration-login">Registration/Login</a>
-            <a href="#contact">Contact</a>
-        </nav>
     </header>
+
+    <nav>
+        <a href="#introduction">Introduction</a>
+        <a href="#examples">Examples</a>
+        <a href="#documentation">Documentation</a>
+        <a href="#download-links">Download Links</a>
+        <a href="#registration-login">Registration/Login</a>
+        <a href="#contact">Contact</a>
+    </nav>
 
     <main>
         <section id="introduction">
