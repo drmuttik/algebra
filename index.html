@@ -36,10 +36,43 @@
         section {
             margin-bottom: 30px;
         }
+
+        /* Added styling for the site map column */
+        .site-map {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 20%;
+            height: 100%;
+            background-color: #f0f0f0;
+            overflow: auto;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .site-map a {
+            display: block;
+            margin-bottom: 10px;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
     </style>
 </head>
 
 <body>
+    <!-- Site Map Column -->
+    <div class="site-map">
+        <h2>Site Map</h2>
+        <a href="#introduction">Introduction</a>
+        <a href="#examples">Examples</a>
+        <a href="#documentation">Documentation</a>
+        <a href="#download-links">Download Links</a>
+        <a href="#registration-login">Registration/Login</a>
+        <a href="#contact">Contact</a>
+    </div>
+
+    <!-- Main Content -->
     <header>
         <h1>Neuroalgebra</h1>
         <nav>
@@ -86,4 +119,3 @@
 </body>
 
 </html>
-
