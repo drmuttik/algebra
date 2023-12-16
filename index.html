@@ -47,6 +47,10 @@
             color: #333;
             font-weight: bold;
         }
+
+        #registeredLink {
+            display: none;
+        }
     </style>
 </head>
 
@@ -73,37 +77,68 @@
         <!-- Content Column -->
         <div class="content">
             <section id="introduction">
-                <!-- Your content here -->
-                Intro.....
+                <h2>Introduction</h2>
+                <p>Welcome to Neuroalgebra - your portal to explore the world of neural mathematics.</p>
             </section>
 
             <section id="examples">
-                <!-- Your content here -->
-                Examples......
+                <h2>Examples</h2>
+                <p>Explore fascinating examples of neuroalgebraic computations.</p>
+                <p id="registeredLink">Logged-in users can see a special <a href="#">exclusive example</a>.</p>
             </section>
 
             <section id="documentation">
-                <!-- Your content here -->
-                Documentation.....
+                <h2>Documentation</h2>
+                <p>Find detailed documentation on neuroalgebraic concepts and usage.</p>
             </section>
 
             <section id="download-links">
-                <!-- Your content here -->
-                Downloads......
+                <h2>Download Links</h2>
+                <p>Download the latest neuroalgebraic tools and resources.</p>
             </section>
 
             <section id="registration-login">
-                <!-- Placeholder for registration and login content -->
-                <a href="register.html">Register</a>
-                <a href="login.html">Login</a>
+                <h2>Registration/Login</h2>
+                <p>Register or log in to access exclusive content and features.</p>
             </section>
 
             <section id="contact">
-                <!-- Your content here -->
-                Call 999
+                <h2>Contact</h2>
+                <p>Get in touch with us for any inquiries or feedback.</p>
             </section>
         </div>
     </main>
+
+    <!-- Include Firebase scripts and initialize Firebase -->
+    <script defer src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/9.0.2/firebase-database.js"></script>
+
+    <!-- Replace with your Firebase config -->
+    <script defer>
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+
+        // Firebase authentication listener (assumed)
+        firebase.auth().onAuthStateChanged((user) => {
+            const registeredLink = document.getElementById('registeredLink');
+            if (user) {
+                // User is logged in, make the link visible
+                registeredLink.style.display = 'block';
+            } else {
+                // User is not logged in, hide the link
+                registeredLink.style.display = 'none';
+            }
+        });
+    </script>
 </body>
 
 </html>
