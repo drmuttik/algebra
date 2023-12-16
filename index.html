@@ -109,26 +109,31 @@
         </div>
     </main>
 
-    <!-- Include Firebase scripts and initialize Firebase -->
-    <script defer src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js"></script>
-    <script defer src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js"></script>
-    <script defer src="https://www.gstatic.com/firebasejs/9.0.2/firebase-database.js"></script>
+<script defer src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js"></script>
+<script defer src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js"></script>
+<script defer src="https://www.gstatic.com/firebasejs/9.0.2/firebase-database.js"></script>
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
 
-    <!-- Replace with your Firebase config -->
-    <script defer>
-        const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_AUTH_DOMAIN",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_STORAGE_BUCKET",
-            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-            appId: "YOUR_APP_ID"
-        };
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyBLCCh-HtMh2Kx8hR-D0WMN025QZbr0rm8",
+    authDomain: "neuroalgebra.firebaseapp.com",
+    databaseURL: "https://neuroalgebra-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "neuroalgebra",
+    storageBucket: "neuroalgebra.appspot.com",
+    messagingSenderId: "478495860086",
+    appId: "1:478495860086:web:601b159d41f45934470657"
+  };
 
-        firebase.initializeApp(firebaseConfig);
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
 
-        // Firebase authentication listener (assumed)
-        firebase.auth().onAuthStateChanged((user) => {
+    // Firebase authentication listener (assumed)
+        app.auth().onAuthStateChanged((user) => {
             const registeredLink = document.getElementById('registeredLink');
             if (user) {
                 // User is logged in, make the link visible
