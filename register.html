@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+    <!-- Include Firebase scripts and initialize Firebase -->
+    <script defer src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/9.0.2/firebase-database.js"></script>
+    <!-- Replace with your Firebase config -->
+    <script defer>
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+    </script>
+</head>
+
+<body>
+    <h1>User Registration</h1>
+
+    <!-- Registration Form -->
+    <form id="registrationForm">
+        <label for="email">Email:</label>
+        <input type="email" id="email" required>
+        <br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" required>
+        <br>
+        <button type="button" onclick="registerUser()">Register</button>
+    </form>
+
+    <!-- Display registration status -->
+    <div id="registrationStatus"></div>
+
+    <script>
+        // Function to register a user
+        function registerUser() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // Call Firebase authentication to create a new user
+            firebase.auth().createUserWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    // User registration successful
+                    document.getElementById('registrationStatus').innerText = 'Registration successful!';
+                })
+                .catch((error) => {
+                    // Handle errors
+                    document.getElementById('registrationStatus').innerText = 'Registration failed. ' + error.message;
+                });
+        }
+    </script>
+</body>
+
+</html>
