@@ -8,7 +8,7 @@
 <script type="module">
   // Import the functions you need from the SDKs you need
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-  import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+  import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -41,14 +41,21 @@
     window.registerUser = function(email, password) {
         const resultMessage = document.getElementById("resultMessage");
 
+        // Check password strength
+        if (!validatePasswordStrength(password)) {
+            resultMessage.textContent = "Password must be at least 10 characters long and include numbers.";
+            resultMessage.style.color = "red";
+            return;
+        }
+
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 const user = userCredential.user;
 
                 // Send email verification
-                sendEmailVerification(auth.currentUser)
+                sendPasswordResetEmail(auth, email)
                     .then(() => {
-                        // Email verification sent successfully
+                        // Password reset email sent successfully
                         resultMessage.textContent = `User created. Verification email sent to ${user.email}`;
                         resultMessage.style.color = "green";
                     })
@@ -65,9 +72,17 @@
             });
     };
 
+    // Function to check password strength
+    function validatePasswordStrength(password) {
+        // Password must be at least 10 characters long and include numbers
+        const passwordRegex = /^(?=.*\d).{10,}$/;
+        return passwordRegex.test(password);
+    }
+
     // Setup click event when DOM is fully loaded
     document.addEventListener("DOMContentLoaded", function() {
         const registerButton = document.getElementById("registerButton");
+        const forgotPasswordLink = document.getElementById("forgotPasswordLink");
 
         if (registerButton) {
             registerButton.addEventListener("click", function() {
@@ -76,6 +91,23 @@
 
                 // Call the registerUser function with user input
                 window.registerUser(emailInput, passwordInput);
+            });
+        }
+
+        if (forgotPasswordLink) {
+            forgotPasswordLink.addEventListener("click", function() {
+                const emailInput = document.getElementById("emailInput").value;
+
+                // Initiate the password reset process
+                sendPasswordResetEmail(auth, emailInput)
+                    .then(() => {
+                        // Password reset email sent successfully
+                        console.log("Password reset email sent");
+                    })
+                    .catch((error) => {
+                        // Error sending password reset email
+                        console.error("Error sending password reset email:", error.message);
+                    });
             });
         }
     });
@@ -93,9 +125,17 @@
         <br>
         <label for="password">Password:</label>
         <input type="password" id="passwordInput" required>
-        <br><br>
+        <br>
+        <!-- Password strength requirements explanation -->
+        <p id="passwordStrengthText" style="color: #333;">
+        Password must be at least 10 characters long and include both characters and numbers. May include special charaters.
+        </p>
+        <br>
         <button type="button" id="registerButton">Register</button>
     </form>
+    
+    <!-- Link for "I forgot my password" -->
+    <a href="#" id="forgotPasswordLink">I forgot my password</a>
 
     <!-- Display registration status -->
     <p id="resultMessage"></p>
