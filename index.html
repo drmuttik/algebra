@@ -147,7 +147,7 @@
     }
 
     // Firebase authentication listener (assumed)
-        app.auth().onAuthStateChanged((user) => {
+        auth.onAuthStateChanged((user) => {
             const registeredLink = document.getElementById('registeredLink');
             if (user) {
                 // User is logged in, make the link visible
