@@ -75,7 +75,7 @@
             const password = document.getElementById('password').value;
 
             // Call Firebase authentication to create a new user
-            createUserWithEmailAndPassword(auth, email, password)
+            auth.createUserWithEmailAndPassword(email, password)
                 .then((userCredential) => {
                     // User registration successful
                     document.getElementById('registrationStatus').innerText = 'Registration successful!';
