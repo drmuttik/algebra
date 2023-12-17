@@ -5,14 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration</title>
-<!--
-    <script defer src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js"></script>
-<script defer src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js"></script>
-<script defer src="https://www.gstatic.com/firebasejs/9.0.2/firebase-database.js"></script>
--->    
 <script type="module">
   // Import the functions you need from the SDKs you need
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  import { getAuth } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -28,13 +24,30 @@
   };
 
   // Initialize Firebase
+  console.log("Initializing Firebase...");
   const app = initializeApp(firebaseConfig);
-  try {
-    const app = firebase.app();
-    console.log("Firebase initialized:", app.name);
-} catch (error) {
+  const auth = getAuth(app);
+  console.log("Initialization exited...");
+    
+    try {
+    //const fire = app.app();
+    console.log("Firebase initialized:", app);
+    console.log("Auth initialized:", auth);
+    } catch (error) {
     console.error("Firebase initialization error:", error);
-}
+    }
+
+    // Firebase authentication listener (assumed)
+        auth.onAuthStateChanged((user) => {
+            const registeredLink = document.getElementById('registeredLink');
+            if (user) {
+                // User is logged in, make the link visible
+                registeredLink.style.display = 'block';
+            } else {
+                // User is not logged in, hide the link
+                registeredLink.style.display = 'none';
+            }
+        });
 </script>
 </head>
 
@@ -62,7 +75,7 @@
             const password = document.getElementById('password').value;
 
             // Call Firebase authentication to create a new user
-            app.auth().createUserWithEmailAndPassword(email, password)
+            auth.createUserWithEmailAndPassword(email, password)
                 .then((userCredential) => {
                     // User registration successful
                     document.getElementById('registrationStatus').innerText = 'Registration successful!';
