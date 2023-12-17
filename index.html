@@ -133,6 +133,13 @@
 
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
+    
+    try {
+    const app = firebase.app();
+    console.log("Firebase initialized:", app.name);
+    } catch (error) {
+    console.error("Firebase initialization error:", error);
+    }
 
     // Firebase authentication listener (assumed)
         app.auth().onAuthStateChanged((user) => {
