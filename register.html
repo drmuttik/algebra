@@ -29,13 +29,13 @@
   const auth = getAuth(app);
   console.log("Done.");
     
-    try {
+    //try {
     //const fire = app.app();
-    console.log("Firebase initialized:", app);
-    console.log("Auth initialized:", auth);
-    } catch (error) {
-    console.error("Firebase initialization error:", error);
-    }
+    //console.log("Firebase initialized:", app);
+    //console.log("Auth initialized:", auth);
+    //} catch (error) {
+    //console.error("Firebase initialization error:", error);
+    //}
 
     // Firebase authentication listener (assumed)
         auth.onAuthStateChanged((user) => {
