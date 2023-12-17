@@ -37,18 +37,35 @@
     //console.error("Firebase initialization error:", error);
     //}
 
-    // Firebase authentication listener (assumed)
-        auth.onAuthStateChanged((user) => {
-            const registeredLink = document.getElementById('registeredLink');
-            if (user) {
-                // User is logged in, make the link visible
-                registeredLink.style.display = 'block';
-            } else {
-                // User is not logged in, hide the link
-                registeredLink.style.display = 'none';
-            }
-        });
-        window.auth = auth;
+    // Function to register a user
+    window.registerUser = function(email, password) {
+        createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                resultMessage.textContent = `User created: ${user.email}`;
+                resultMessage.style.color = "green";
+            })
+            .catch((error) => {
+                resultMessage.textContent = `Error creating user: ${error.message}`;
+                resultMessage.style.color = "red";
+            });  
+    };
+
+    // Setup click event when DOM is fully loaded
+    document.addEventListener("DOMContentLoaded", function() {
+        const registerButton = document.getElementById("registerButton");
+
+        if (registerButton) {
+            registerButton.addEventListener("click", function() {
+                const emailInput = document.getElementById("emailInput").value;
+                const passwordInput = document.getElementById("passwordInput").value;
+
+                // Call the registerUser function with user input
+                window.registerUser(emailInput, passwordInput);
+            });
+        }
+    });
+    
 </script>
 </head>
 
@@ -58,39 +75,17 @@
     <!-- Registration Form -->
     <form id="registrationForm">
         <label for="email">Email:</label>
-        <input type="email" id="email" required>
+        <input type="email" id="emailInput" required>
         <br>
         <label for="password">Password:</label>
-        <input type="password" id="password" required>
-        <br>
-        <button type="button" onclick="registerUser()">Register</button>
+        <input type="password" id="passwordInput" required>
+        <br><br>
+        <button type="button" id="registerButton">Register</button>
     </form>
 
     <!-- Display registration status -->
-    <div id="registrationStatus"></div>
+    <p id="resultMessage"></p>
 
-    <script type="module">
-        import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-        // Function to register a user
-        window.registerUser = function(){
-        //function registerUser() {
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            //console.log(email); console.log(password);
-            console.log(auth);
-
-            // Call Firebase authentication to create a new user
-            createUserWithEmailAndPassword(email, password)
-                .then((userCredential) => {
-                    // User registration successful
-                    document.getElementById('registrationStatus').innerText = 'Registration successful!';
-                })
-                .catch((error) => {
-                    // Handle errors
-                    document.getElementById('registrationStatus').innerText = 'Registration failed. ' + error.message;
-                });
-        }
-    </script>
 </body>
 
 </html>
