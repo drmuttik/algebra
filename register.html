@@ -80,7 +80,7 @@
             console.log(auth);
 
             // Call Firebase authentication to create a new user
-            auth.createUserWithEmailAndPassword(email, password)
+            createUserWithEmailAndPassword(email, password)
                 .then((userCredential) => {
                     // User registration successful
                     document.getElementById('registrationStatus').innerText = 'Registration successful!';
