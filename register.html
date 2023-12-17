@@ -74,8 +74,8 @@
         function registerUser() {
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
-            console.log(email); console.log(password);
-            if(auth) console.log("auth defined OK!"); else console.log("auth undefined!");
+            //console.log(email); console.log(password);
+            console.log(auth);
 
             // Call Firebase authentication to create a new user
             auth.createUserWithEmailAndPassword(email, password)
