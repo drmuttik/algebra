@@ -78,7 +78,7 @@
             if(auth) console.log("auth defined OK!"); else console.log("auth undefined!");
 
             // Call Firebase authentication to create a new user
-            app.auth().createUserWithEmailAndPassword(email, password)
+            auth.createUserWithEmailAndPassword(email, password)
                 .then((userCredential) => {
                     // User registration successful
                     document.getElementById('registrationStatus').innerText = 'Registration successful!';
