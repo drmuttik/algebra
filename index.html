@@ -137,7 +137,7 @@
   console.log("Initialization exited...");
     
     try {
-    const app = firebase.app();
+    const app = app.app();
     console.log("Firebase initialized:", app.name);
     } catch (error) {
     console.error("Firebase initialization error:", error);
