@@ -8,7 +8,7 @@
 <script type="module">
   // Import the functions you need from the SDKs you need
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-  import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+  import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -37,18 +37,32 @@
     //console.error("Firebase initialization error:", error);
     //}
 
-    // Function to register a user
+    // Function to register a user and send email verification
     window.registerUser = function(email, password) {
+        const resultMessage = document.getElementById("resultMessage");
+
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 const user = userCredential.user;
-                resultMessage.textContent = `User created: ${user.email}`;
-                resultMessage.style.color = "green";
+
+                // Send email verification
+                sendEmailVerification(auth.currentUser)
+                    .then(() => {
+                        // Email verification sent successfully
+                        resultMessage.textContent = `User created. Verification email sent to ${user.email}`;
+                        resultMessage.style.color = "green";
+                    })
+                    .catch((error) => {
+                        // Error sending email verification
+                        resultMessage.textContent = `Error sending verification email: ${error.message}`;
+                        resultMessage.style.color = "red";
+                    });
             })
             .catch((error) => {
+                // Error creating user
                 resultMessage.textContent = `Error creating user: ${error.message}`;
                 resultMessage.style.color = "red";
-            });  
+            });
     };
 
     // Setup click event when DOM is fully loaded
