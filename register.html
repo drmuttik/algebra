@@ -48,6 +48,7 @@
                 registeredLink.style.display = 'none';
             }
         });
+        window.auth = auth;
 </script>
 </head>
 
@@ -62,7 +63,7 @@
         <label for="password">Password:</label>
         <input type="password" id="password" required>
         <br>
-        <button type="button" onclick="registerUser(auth)">Register</button>
+        <button type="button" onclick="registerUser()">Register</button>
     </form>
 
     <!-- Display registration status -->
@@ -70,7 +71,7 @@
 
     <script>
         // Function to register a user
-        function registerUser(auth) {
+        function registerUser() {
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             console.log(email); console.log(password);
